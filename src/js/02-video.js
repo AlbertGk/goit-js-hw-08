@@ -1,3 +1,6 @@
+import throttle from 'lodash.throttle';
+const _ = require('lodash');
+
 const iframe = document.querySelector('iframe');
 const player = new Vimeo.Player(iframe);
 
@@ -10,13 +13,13 @@ player.getVideoTitle().then(function (title) {
 });
 
 const timeUpdater = data => {
-    localStorage.setItem('videoplayer-current-time', JSON.stringify(data.seconds));
+  localStorage.setItem('videoplayer-current-time', JSON.stringify(data.seconds));
 };
 
 const lastTime = localStorage.getItem('videoplayer-current-time');
 const parsedLastTime = JSON.parse(lastTime);
 
-player.on('timeupdate', _.throttle(timeUpdater, [(wait = 1000)]));
+player.on('timeupdate', _.throttle(timeUpdater, [wait = 1000]));
 
 player
   .setCurrentTime(parsedLastTime)
@@ -31,4 +34,4 @@ player
       default:
         break;
     }
-  }); 
+  });
