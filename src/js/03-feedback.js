@@ -1,19 +1,34 @@
-const form = document.querySelector('form.feedback-form');
+import throttle from 'lodash.throttle';
 
-const inputCatcher = (event) => {
-    event.preventDefault();
-    const {
-      elements: { email, message },
-    } = event.currentTarget;
-    localStorage.setItem('feedback-form-state', JSON.stringify({
-        email: email.value,
-        message: message.value
-    }));
+const form = document.querySelector('form.feedback-form');
+const emailField = document.querySelector('input');
+const messageField = document.querySelector('textarea');
+
+const inputCatcher = event => {
+  event.preventDefault();
+  const {
+    elements: { email, message },
+  } = event.currentTarget;
+  localStorage.setItem(
+    'feedback-form-state',
+    JSON.stringify({
+      email: email.value,
+      message: message.value,
+    }),
+  );
 };
 
-form.addEventListener('input', inputCatcher);
+form.addEventListener('input', throttle(inputCatcher, 500));
 
 const inputVal = localStorage.getItem('feedback-form-state');
-// const parsedInputVal = JSON.parse(inputVal);
+const parsedInputVal = JSON.parse(inputVal);
 
-console.log(inputVal);
+console.log(parsedInputVal);
+
+if (parsedInputVal.email !== "") {
+    emailField.value = parsedInputVal.email;
+}
+
+if (parsedInputVal.message !== '') {
+  messageField.value = parsedInputVal.message;
+}
