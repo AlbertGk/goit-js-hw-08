@@ -26,13 +26,18 @@ const parsedInputVal = JSON.parse(inputVal);
 
 console.log(parsedInputVal);
 
-if (parsedInputVal.email !== "") {
-    emailField.value = parsedInputVal.email;
-}
 
-if (parsedInputVal.message !== '') {
-  messageField.value = parsedInputVal.message;
-}
+if (parsedInputVal) {
+  if (parsedInputVal && parsedInputVal.email !== '') {
+    emailField.value = parsedInputVal.email;
+  }
+}  
+
+if (parsedInputVal) {
+  if (parsedInputVal && parsedInputVal.message !== '') {
+    messageField.value = parsedInputVal.message;
+  }
+}  
 
 const submitHandler = (event) => {
     const {
