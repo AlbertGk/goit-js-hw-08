@@ -4,11 +4,11 @@ const form = document.querySelector('form.feedback-form');
 const emailField = document.querySelector('input');
 const messageField = document.querySelector('textarea');
 
-const inputCatcher = event => {
+const inputCatcher = (event) => {
   event.preventDefault();
   const {
     elements: { email, message },
-  } = event.currentTarget;
+  } = form;
     
   localStorage.setItem(
     'feedback-form-state',
@@ -39,13 +39,15 @@ if (parsedInputVal) {
   }
 }  
 
-const submitHandler = (event) => {
+
+
+const submitHandler = () => {
     const {
       elements: { email, message },
-    } = event.currentTarget;
-
+    } = form;
+  
     console.log(`Email: ${email.value}, Message: ${message.value}`);
-    event.currentTarget.reset();
+    form.reset();
 }
 
 form.addEventListener('submit', submitHandler);
