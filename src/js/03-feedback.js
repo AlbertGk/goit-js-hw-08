@@ -41,13 +41,18 @@ if (parsedInputVal) {
 
 
 
-const submitHandler = () => {
-    const {
-      elements: { email, message },
-    } = form;
+const submitHandler = (event) => {
+  event.preventDefault();
+
+  const {
+    elements: { email, message },
+  } = form;
   
-    console.log(`Email: ${email.value}, Message: ${message.value}`);
-    form.reset();
+  console.log(`Email: ${email.value}, Message: ${message.value}`);
+  
+  form.reset();
+  
+  localStorage.removeItem('feedback-form-state');
 }
 
 form.addEventListener('submit', submitHandler);
